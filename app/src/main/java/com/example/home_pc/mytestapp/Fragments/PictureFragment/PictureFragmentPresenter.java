@@ -17,10 +17,7 @@ public class PictureFragmentPresenter {
 
     private Model model = new Model();
 
-    public void setAdapter(Context context, ArrayList<Picture> pictures, RecyclerView recyclerView) {
-        model.setAdapter(context, pictures, recyclerView);
-        Log.v("tag", "CONTEX =" + context);
-    }
+
 
     public void getPicturesFromApi(String urlType, Context context) {
         model.getPictureFromApi(urlType, context);
@@ -38,4 +35,5 @@ public class PictureFragmentPresenter {
         PictureFragment fragment = getFragmentInstance();
         fragment.getPictures(pictures);
     }
+
 }

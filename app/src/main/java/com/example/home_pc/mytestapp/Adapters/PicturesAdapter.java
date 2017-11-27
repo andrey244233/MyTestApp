@@ -14,19 +14,18 @@ import java.util.ArrayList;
 
 public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.PictureViewHolder> {
 
-    private LayoutInflater layoutInflater;
     private ArrayList<Picture> listData;
     private Context context;
 
     public PicturesAdapter(Context context, ArrayList<Picture> listData) {
         this.context = context;
         this.listData = listData;
-        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.picture_item, parent, false);
+        Log.v("tag", "PICTURES ADAPTER CONTEXT empty = " + context.toString().isEmpty() );
+        View view = LayoutInflater.from(context).inflate(R.layout.picture_item, parent, false);
         return new PictureViewHolder(view);
     }
 

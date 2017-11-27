@@ -2,7 +2,10 @@ package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.home_pc.mytestapp.Adapters.PicturesAdapter;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
 import com.example.home_pc.mytestapp.Picture;
+import com.example.home_pc.mytestapp.PicturesRetrofit;
 import com.example.home_pc.mytestapp.R;
 
 import java.util.ArrayList;
@@ -29,7 +34,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView;
@@ -39,6 +43,8 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private ArrayList<String> urls;
     private PictureFragmentPresenter pictureFragmentPresenter;
     public Context context;
+    private View rootView;
+
 
     public PictureFragment() {
         // Required empty public constructor
@@ -74,24 +80,28 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         pictures = new ArrayList<>();
         urls = new ArrayList<>();
-        View rootView = inflater.inflate(R.layout.fragment_picture, container, false);
-        recyclerView = rootView.findViewById(R.id.recycler_view_for_pictures);
+        rootView = inflater.inflate(R.layout.fragment_picture, container, false);
+        initViews();
+        pictureFragmentPresenter = new PictureFragmentPresenter();
+        return rootView;
+    }
+
+    private void initViews() {
         Button btnNew = rootView.findViewById(R.id.btn_new);
         btnNew.setOnClickListener(this);
         Button btnTop = rootView.findViewById(R.id.btn_top);
         btnTop.setOnClickListener(this);
-
-        return rootView;
+        recyclerView = rootView.findViewById(R.id.recycler_view_for_pictures);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
     }
-
 
     @Override
     public void onClick(View view) {
         String urlType;
-        pictureFragmentPresenter = new PictureFragmentPresenter();
         if (!pictureFragmentPresenter.checkAccesToInternet(getActivity())) {
             Toast.makeText(getActivity(), getString(R.string.internet_not_available), Toast.LENGTH_LONG).show();
             return;
@@ -108,9 +118,31 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+
     public void getPictures(ArrayList<Picture> pictures) {
-        Log.v("tag", "GET PICTURES IN PICTURESFRAGMENT PICTURE SIZE = " + pictures.size());
-        pictureFragmentPresenter.setAdapter(getActivity(), pictures, recyclerView);
+        PicturesAdapter picturesAdapter = new PicturesAdapter(getActivity(), pictures);
+        for (int i = 0; i < pictures.size(); i++) {
+            Log.v("tag", "PICTURE URL = " + pictures.get(i).getUrl());
+        }
+        if (recyclerView != null) {   //ЕСЛИ УБРАТЬ ЭТО УСЛОВИЕ, ТО КРЕШИТ
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setAdapter(picturesAdapter);
+            recyclerView.setLayoutManager(gridLayoutManager);
+
+        }
     }
 
+
 }
+
+
+//public void setRecyclerViewLayoutManager(Context context, RecyclerView recyclerView) {
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false);
+//        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                return picturesAdapter.getItemViewType(position);
+//            }
+//        });
+//        recyclerView.setLayoutManager(gridLayoutManager);
+//    }

@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,12 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by HOME_PC on 23.11.2017.
  */
 
-public class PicturesRetrofit  {
+public class PicturesRetrofit {
 
     public static final String BASE_URL = "https://www.reddit.com/";
     RootObject rootObject;
     ArrayList<String> urls = new ArrayList<>();
-
 
     public void getPicturesUrlsViaRetrofit(String type, final Context context) {
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -55,9 +55,12 @@ public class PicturesRetrofit  {
                     Data_ data_ = child.getData();
                     String url = data_.getUrl();
                     urls.add(url);
-                    if(urls.size() == children.size()){
+
+                    if (urls.size() == children.size()) {
+                        Log.v("tag", "URL size in RETROFIT =" + urls.size());
                         Model model = new Model();
                         model.returnUrls(urls);
+
                     }
                 }
             }
@@ -69,5 +72,16 @@ public class PicturesRetrofit  {
         });
 
     }
+
+
+//   public interface FinishedCallback{
+//
+//    public void onFinished(ArrayList<String> url);
+//
+//    }
+//
+//    public void setFinishedCallback(FinishedCallback finishedCallback) {
+//        this.finishedCallback = finishedCallback;
+//    }
 }
 

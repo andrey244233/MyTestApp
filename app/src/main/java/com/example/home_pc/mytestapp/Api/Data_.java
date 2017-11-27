@@ -10,63 +10,63 @@ public class Data_ {
 
     private String domain;
 
-    private Object approvedAtUtc;
+    private String approved_at_utc;
 
-    private Object bannedBy;
+    private String banned_by;
 
     private MediaEmbed mediaEmbed;
 
-    private int thumbnailWidth;
+    private int thumbnail_width;
 
     private String subreddit;
 
-    private Object selftextHtml;
+    private String selftext_html;
 
     private String selftext;
 
-    private Object likes;
+    private String likes;
 
-    private Object suggestedSort;
+    private String suggested_sort;
 
-    private List<Object> userReports = null;
+    private List<String> user_reports;
 
-    private Object secureMedia;
+    private String secure_media;
 
-    private boolean isRedditMediaDomain;
+    private boolean is_reddit_media_domain;
 
-    private Object linkFlairText;
+    private String link_flair_text;
 
     private String id;
 
-    private Object bannedAtUtc;
+    private String banned_at_utc;
 
-    private Object viewCount;
+    private String view_count;
 
     private boolean archived;
 
     private boolean clicked;
 
-    private Object reportReasons;
+    private String report_reasons;
 
     private String title;
 
-    private int numCrossposts;
+    private int num_crossposts;
 
     private boolean saved;
 
-    private List<Object> modReports = null;
+    private List<String> mod_reports;
 
-    private boolean canModPost;
+    private boolean can_mod_post;
 
-    private boolean isCrosspostable;
+    private boolean is_crosspostable;
 
     private boolean pinned;
 
     private int score;
 
-    private Object approvedBy;
+    private String approved_by;
 
-    private boolean over18;
+    private boolean over_18;
 
     private boolean hidden;
 
@@ -74,37 +74,37 @@ public class Data_ {
 
     private String thumbnail;
 
-    private String subredditId;
+    private String subreddit_id;
 
     private boolean edited;
 
-    private Object linkFlairCssClass;
+    private String link_flair_css_class;
 
-    private String authorFlairCssClass;
+    private String author_flair_css_class;
 
-    private boolean contestMode;
+    private boolean contest_mode;
 
     private int gilded;
 
     private int downs;
 
-    private boolean brandSafe;
+    private boolean brand_safe;
 
     private SecureMediaEmbed secureMediaEmbed;
 
-    private Object removalReason;
+    private String removal_reason;
 
-    private String postHint;
+    private String post_hint;
 
-    private Object authorFlairText;
+    private String author_flair_text;
 
     private boolean stickied;
 
-    private boolean canGild;
+    private boolean can_gild;
 
-    private int thumbnailHeight;
+    private int thumbnail_height;
 
-    private String parentWhitelistStatus;
+    private String parent_whitelist_status;
 
     private String name;
 
@@ -112,65 +112,66 @@ public class Data_ {
 
     private String permalink;
 
-    private String subredditType;
+    private String subreddit_type;
 
     private boolean locked;
 
-    private boolean hideScore;
+    private boolean hide_score;
 
     private int created;
 
     private String url;
 
-    private String whitelistStatus;
+    private String whitelist_status;
 
     private boolean quarantine;
 
     private String author;
 
-    private int createdUtc;
+    private int created_utc;
 
-    private String subredditNamePrefixed;
+    private String subreddit_name_prefixed;
 
     private int ups;
 
-    private Object media;
+    private String media;
 
-    private int numComments;
+    private int num_comments;
 
-    private boolean isSelf;
+    private boolean is_self;
 
     private boolean visited;
 
-    private Object numReports;
+    private String num_reports;
 
-    private boolean isVideo;
+    private boolean is_video;
 
-    private Object distinguished;
-
-    public String getDomain() {
-        return domain;
-    }
+    private String distinguished;
 
     public void setDomain(String domain) {
         this.domain = domain;
     }
 
-    public Object getApprovedAtUtc() {
-        return approvedAtUtc;
+    public String getDomain() {
+        return this.domain;
     }
 
-    public void setApprovedAtUtc(Object approvedAtUtc) {
-        this.approvedAtUtc = approvedAtUtc;
+    public void setApproved_at_utc(String approved_at_utc) {
+        this.approved_at_utc = approved_at_utc;
     }
 
-    public Object getBannedBy() {
-        return bannedBy;
+    public String getApproved_at_utc() {
+        return this.approved_at_utc;
     }
 
-    public void setBannedBy(Object bannedBy) {
-        this.bannedBy = bannedBy;
+    public void setBanned_by(String banned_by) {
+        this.banned_by = banned_by;
     }
+
+    public String getBanned_by() {
+        return this.banned_by;
+    }
+
 
     public MediaEmbed getMediaEmbed() {
         return mediaEmbed;
@@ -180,300 +181,301 @@ public class Data_ {
         this.mediaEmbed = mediaEmbed;
     }
 
-    public int getThumbnailWidth() {
-        return thumbnailWidth;
+
+    public void setThumbnail_width(int thumbnail_width) {
+        this.thumbnail_width = thumbnail_width;
     }
 
-    public void setThumbnailWidth(int thumbnailWidth) {
-        this.thumbnailWidth = thumbnailWidth;
-    }
-
-    public String getSubreddit() {
-        return subreddit;
+    public int getThumbnail_width() {
+        return this.thumbnail_width;
     }
 
     public void setSubreddit(String subreddit) {
         this.subreddit = subreddit;
     }
 
-    public Object getSelftextHtml() {
-        return selftextHtml;
+    public String getSubreddit() {
+        return this.subreddit;
     }
 
-    public void setSelftextHtml(Object selftextHtml) {
-        this.selftextHtml = selftextHtml;
+    public void setSelftext_html(String selftext_html) {
+        this.selftext_html = selftext_html;
     }
 
-    public String getSelftext() {
-        return selftext;
+    public String getSelftext_html() {
+        return this.selftext_html;
     }
 
     public void setSelftext(String selftext) {
         this.selftext = selftext;
     }
 
-    public Object getLikes() {
-        return likes;
+    public String getSelftext() {
+        return this.selftext;
     }
 
-    public void setLikes(Object likes) {
+    public void setLikes(String likes) {
         this.likes = likes;
     }
 
-    public Object getSuggestedSort() {
-        return suggestedSort;
+    public String getLikes() {
+        return this.likes;
     }
 
-    public void setSuggestedSort(Object suggestedSort) {
-        this.suggestedSort = suggestedSort;
+    public void setSuggested_sort(String suggested_sort) {
+        this.suggested_sort = suggested_sort;
     }
 
-    public List<Object> getUserReports() {
-        return userReports;
+    public String getSuggested_sort() {
+        return this.suggested_sort;
     }
 
-    public void setUserReports(List<Object> userReports) {
-        this.userReports = userReports;
+    public void setUser_reports(List<String> user_reports) {
+        this.user_reports = user_reports;
     }
 
-    public Object getSecureMedia() {
-        return secureMedia;
+    public List<String> getUser_reports() {
+        return this.user_reports;
     }
 
-    public void setSecureMedia(Object secureMedia) {
-        this.secureMedia = secureMedia;
+    public void setSecure_media(String secure_media) {
+        this.secure_media = secure_media;
     }
 
-    public boolean isIsRedditMediaDomain() {
-        return isRedditMediaDomain;
+    public String getSecure_media() {
+        return this.secure_media;
     }
 
-    public void setIsRedditMediaDomain(boolean isRedditMediaDomain) {
-        this.isRedditMediaDomain = isRedditMediaDomain;
+    public void setIs_reddit_media_domain(boolean is_reddit_media_domain) {
+        this.is_reddit_media_domain = is_reddit_media_domain;
     }
 
-    public Object getLinkFlairText() {
-        return linkFlairText;
+    public boolean getIs_reddit_media_domain() {
+        return this.is_reddit_media_domain;
     }
 
-    public void setLinkFlairText(Object linkFlairText) {
-        this.linkFlairText = linkFlairText;
+    public void setLink_flair_text(String link_flair_text) {
+        this.link_flair_text = link_flair_text;
     }
 
-    public String getId() {
-        return id;
+    public String getLink_flair_text() {
+        return this.link_flair_text;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public Object getBannedAtUtc() {
-        return bannedAtUtc;
+    public String getId() {
+        return this.id;
     }
 
-    public void setBannedAtUtc(Object bannedAtUtc) {
-        this.bannedAtUtc = bannedAtUtc;
+    public void setBanned_at_utc(String banned_at_utc) {
+        this.banned_at_utc = banned_at_utc;
     }
 
-    public Object getViewCount() {
-        return viewCount;
+    public String getBanned_at_utc() {
+        return this.banned_at_utc;
     }
 
-    public void setViewCount(Object viewCount) {
-        this.viewCount = viewCount;
+    public void setView_count(String view_count) {
+        this.view_count = view_count;
     }
 
-    public boolean isArchived() {
-        return archived;
+    public String getView_count() {
+        return this.view_count;
     }
 
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
 
-    public boolean isClicked() {
-        return clicked;
+    public boolean getArchived() {
+        return this.archived;
     }
 
     public void setClicked(boolean clicked) {
         this.clicked = clicked;
     }
 
-    public Object getReportReasons() {
-        return reportReasons;
+    public boolean getClicked() {
+        return this.clicked;
     }
 
-    public void setReportReasons(Object reportReasons) {
-        this.reportReasons = reportReasons;
+    public void setReport_reasons(String report_reasons) {
+        this.report_reasons = report_reasons;
     }
 
-    public String getTitle() {
-        return title;
+    public String getReport_reasons() {
+        return this.report_reasons;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public int getNumCrossposts() {
-        return numCrossposts;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setNumCrossposts(int numCrossposts) {
-        this.numCrossposts = numCrossposts;
+    public void setNum_crossposts(int num_crossposts) {
+        this.num_crossposts = num_crossposts;
     }
 
-    public boolean isSaved() {
-        return saved;
+    public int getNum_crossposts() {
+        return this.num_crossposts;
     }
 
     public void setSaved(boolean saved) {
         this.saved = saved;
     }
 
-    public List<Object> getModReports() {
-        return modReports;
+    public boolean getSaved() {
+        return this.saved;
     }
 
-    public void setModReports(List<Object> modReports) {
-        this.modReports = modReports;
+    public void setMod_reports(List<String> mod_reports) {
+        this.mod_reports = mod_reports;
     }
 
-    public boolean isCanModPost() {
-        return canModPost;
+    public List<String> getMod_reports() {
+        return this.mod_reports;
     }
 
-    public void setCanModPost(boolean canModPost) {
-        this.canModPost = canModPost;
+    public void setCan_mod_post(boolean can_mod_post) {
+        this.can_mod_post = can_mod_post;
     }
 
-    public boolean isIsCrosspostable() {
-        return isCrosspostable;
+    public boolean getCan_mod_post() {
+        return this.can_mod_post;
     }
 
-    public void setIsCrosspostable(boolean isCrosspostable) {
-        this.isCrosspostable = isCrosspostable;
+    public void setIs_crosspostable(boolean is_crosspostable) {
+        this.is_crosspostable = is_crosspostable;
     }
 
-    public boolean isPinned() {
-        return pinned;
+    public boolean getIs_crosspostable() {
+        return this.is_crosspostable;
     }
 
     public void setPinned(boolean pinned) {
         this.pinned = pinned;
     }
 
-    public int getScore() {
-        return score;
+    public boolean getPinned() {
+        return this.pinned;
     }
 
     public void setScore(int score) {
         this.score = score;
     }
 
-    public Object getApprovedBy() {
-        return approvedBy;
+    public int getScore() {
+        return this.score;
     }
 
-    public void setApprovedBy(Object approvedBy) {
-        this.approvedBy = approvedBy;
+    public void setApproved_by(String approved_by) {
+        this.approved_by = approved_by;
     }
 
-    public boolean isOver18() {
-        return over18;
+    public String getApproved_by() {
+        return this.approved_by;
     }
 
-    public void setOver18(boolean over18) {
-        this.over18 = over18;
+    public void setOver_18(boolean over_18) {
+        this.over_18 = over_18;
     }
 
-    public boolean isHidden() {
-        return hidden;
+    public boolean getOver_18() {
+        return this.over_18;
     }
 
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
 
-    public Preview getPreview() {
-        return preview;
+    public boolean getHidden() {
+        return this.hidden;
     }
 
     public void setPreview(Preview preview) {
         this.preview = preview;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public Preview getPreview() {
+        return this.preview;
     }
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
-    public String getSubredditId() {
-        return subredditId;
+    public String getThumbnail() {
+        return this.thumbnail;
     }
 
-    public void setSubredditId(String subredditId) {
-        this.subredditId = subredditId;
+    public void setSubreddit_id(String subreddit_id) {
+        this.subreddit_id = subreddit_id;
     }
 
-    public boolean isEdited() {
-        return edited;
+    public String getSubreddit_id() {
+        return this.subreddit_id;
     }
 
     public void setEdited(boolean edited) {
         this.edited = edited;
     }
 
-    public Object getLinkFlairCssClass() {
-        return linkFlairCssClass;
+    public boolean getEdited() {
+        return this.edited;
     }
 
-    public void setLinkFlairCssClass(Object linkFlairCssClass) {
-        this.linkFlairCssClass = linkFlairCssClass;
+    public void setLink_flair_css_class(String link_flair_css_class) {
+        this.link_flair_css_class = link_flair_css_class;
     }
 
-    public String getAuthorFlairCssClass() {
-        return authorFlairCssClass;
+    public String getLink_flair_css_class() {
+        return this.link_flair_css_class;
     }
 
-    public void setAuthorFlairCssClass(String authorFlairCssClass) {
-        this.authorFlairCssClass = authorFlairCssClass;
+    public void setAuthor_flair_css_class(String author_flair_css_class) {
+        this.author_flair_css_class = author_flair_css_class;
     }
 
-    public boolean isContestMode() {
-        return contestMode;
+    public String getAuthor_flair_css_class() {
+        return this.author_flair_css_class;
     }
 
-    public void setContestMode(boolean contestMode) {
-        this.contestMode = contestMode;
+    public void setContest_mode(boolean contest_mode) {
+        this.contest_mode = contest_mode;
     }
 
-    public int getGilded() {
-        return gilded;
+    public boolean getContest_mode() {
+        return this.contest_mode;
     }
 
     public void setGilded(int gilded) {
         this.gilded = gilded;
     }
 
-    public int getDowns() {
-        return downs;
+    public int getGilded() {
+        return this.gilded;
     }
 
     public void setDowns(int downs) {
         this.downs = downs;
     }
 
-    public boolean isBrandSafe() {
-        return brandSafe;
+    public int getDowns() {
+        return this.downs;
     }
 
-    public void setBrandSafe(boolean brandSafe) {
-        this.brandSafe = brandSafe;
+    public void setBrand_safe(boolean brand_safe) {
+        this.brand_safe = brand_safe;
+    }
+
+    public boolean getBrand_safe() {
+        return this.brand_safe;
     }
 
     public SecureMediaEmbed getSecureMediaEmbed() {
@@ -484,227 +486,228 @@ public class Data_ {
         this.secureMediaEmbed = secureMediaEmbed;
     }
 
-    public Object getRemovalReason() {
-        return removalReason;
+    public void setRemoval_reason(String removal_reason) {
+        this.removal_reason = removal_reason;
     }
 
-    public void setRemovalReason(Object removalReason) {
-        this.removalReason = removalReason;
+    public String getRemoval_reason() {
+        return this.removal_reason;
     }
 
-    public String getPostHint() {
-        return postHint;
+    public void setPost_hint(String post_hint) {
+        this.post_hint = post_hint;
     }
 
-    public void setPostHint(String postHint) {
-        this.postHint = postHint;
+    public String getPost_hint() {
+        return this.post_hint;
     }
 
-    public Object getAuthorFlairText() {
-        return authorFlairText;
+    public void setAuthor_flair_text(String author_flair_text) {
+        this.author_flair_text = author_flair_text;
     }
 
-    public void setAuthorFlairText(Object authorFlairText) {
-        this.authorFlairText = authorFlairText;
-    }
-
-    public boolean isStickied() {
-        return stickied;
+    public String getAuthor_flair_text() {
+        return this.author_flair_text;
     }
 
     public void setStickied(boolean stickied) {
         this.stickied = stickied;
     }
 
-    public boolean isCanGild() {
-        return canGild;
+    public boolean getStickied() {
+        return this.stickied;
     }
 
-    public void setCanGild(boolean canGild) {
-        this.canGild = canGild;
+    public void setCan_gild(boolean can_gild) {
+        this.can_gild = can_gild;
     }
 
-    public int getThumbnailHeight() {
-        return thumbnailHeight;
+    public boolean getCan_gild() {
+        return this.can_gild;
     }
 
-    public void setThumbnailHeight(int thumbnailHeight) {
-        this.thumbnailHeight = thumbnailHeight;
+    public void setThumbnail_height(int thumbnail_height) {
+        this.thumbnail_height = thumbnail_height;
     }
 
-    public String getParentWhitelistStatus() {
-        return parentWhitelistStatus;
+    public int getThumbnail_height() {
+        return this.thumbnail_height;
     }
 
-    public void setParentWhitelistStatus(String parentWhitelistStatus) {
-        this.parentWhitelistStatus = parentWhitelistStatus;
+    public void setParent_whitelist_status(String parent_whitelist_status) {
+        this.parent_whitelist_status = parent_whitelist_status;
     }
 
-    public String getName() {
-        return name;
+    public String getParent_whitelist_status() {
+        return this.parent_whitelist_status;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public boolean isSpoiler() {
-        return spoiler;
+    public String getName() {
+        return this.name;
     }
 
     public void setSpoiler(boolean spoiler) {
         this.spoiler = spoiler;
     }
 
-    public String getPermalink() {
-        return permalink;
+    public boolean getSpoiler() {
+        return this.spoiler;
     }
 
     public void setPermalink(String permalink) {
         this.permalink = permalink;
     }
 
-    public String getSubredditType() {
-        return subredditType;
+    public String getPermalink() {
+        return this.permalink;
     }
 
-    public void setSubredditType(String subredditType) {
-        this.subredditType = subredditType;
+    public void setSubreddit_type(String subreddit_type) {
+        this.subreddit_type = subreddit_type;
     }
 
-    public boolean isLocked() {
-        return locked;
+    public String getSubreddit_type() {
+        return this.subreddit_type;
     }
 
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
-    public boolean isHideScore() {
-        return hideScore;
+    public boolean getLocked() {
+        return this.locked;
     }
 
-    public void setHideScore(boolean hideScore) {
-        this.hideScore = hideScore;
+    public void setHide_score(boolean hide_score) {
+        this.hide_score = hide_score;
     }
 
-    public int getCreated() {
-        return created;
+    public boolean getHide_score() {
+        return this.hide_score;
     }
 
     public void setCreated(int created) {
         this.created = created;
     }
 
-    public String getUrl() {
-        return url;
+    public int getCreated() {
+        return this.created;
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public String getWhitelistStatus() {
-        return whitelistStatus;
+    public String getUrl() {
+        return this.url;
     }
 
-    public void setWhitelistStatus(String whitelistStatus) {
-        this.whitelistStatus = whitelistStatus;
+    public void setWhitelist_status(String whitelist_status) {
+        this.whitelist_status = whitelist_status;
     }
 
-    public boolean isQuarantine() {
-        return quarantine;
+    public String getWhitelist_status() {
+        return this.whitelist_status;
     }
 
     public void setQuarantine(boolean quarantine) {
         this.quarantine = quarantine;
     }
 
-    public String getAuthor() {
-        return author;
+    public boolean getQuarantine() {
+        return this.quarantine;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    public int getCreatedUtc() {
-        return createdUtc;
+    public String getAuthor() {
+        return this.author;
     }
 
-    public void setCreatedUtc(int createdUtc) {
-        this.createdUtc = createdUtc;
+    public void setCreated_utc(int created_utc) {
+        this.created_utc = created_utc;
     }
 
-    public String getSubredditNamePrefixed() {
-        return subredditNamePrefixed;
+    public int getCreated_utc() {
+        return this.created_utc;
     }
 
-    public void setSubredditNamePrefixed(String subredditNamePrefixed) {
-        this.subredditNamePrefixed = subredditNamePrefixed;
+    public void setSubreddit_name_prefixed(String subreddit_name_prefixed) {
+        this.subreddit_name_prefixed = subreddit_name_prefixed;
     }
 
-    public int getUps() {
-        return ups;
+    public String getSubreddit_name_prefixed() {
+        return this.subreddit_name_prefixed;
     }
 
     public void setUps(int ups) {
         this.ups = ups;
     }
 
-    public Object getMedia() {
-        return media;
+    public int getUps() {
+        return this.ups;
     }
 
-    public void setMedia(Object media) {
+    public void setMedia(String media) {
         this.media = media;
     }
 
-    public int getNumComments() {
-        return numComments;
+    public String getMedia() {
+        return this.media;
     }
 
-    public void setNumComments(int numComments) {
-        this.numComments = numComments;
+    public void setNum_comments(int num_comments) {
+        this.num_comments = num_comments;
     }
 
-    public boolean isIsSelf() {
-        return isSelf;
+    public int getNum_comments() {
+        return this.num_comments;
     }
 
-    public void setIsSelf(boolean isSelf) {
-        this.isSelf = isSelf;
+    public void setIs_self(boolean is_self) {
+        this.is_self = is_self;
     }
 
-    public boolean isVisited() {
-        return visited;
+    public boolean getIs_self() {
+        return this.is_self;
     }
 
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
 
-    public Object getNumReports() {
-        return numReports;
+    public boolean getVisited() {
+        return this.visited;
     }
 
-    public void setNumReports(Object numReports) {
-        this.numReports = numReports;
+    public void setNum_reports(String num_reports) {
+        this.num_reports = num_reports;
     }
 
-    public boolean isIsVideo() {
-        return isVideo;
+    public String getNum_reports() {
+        return this.num_reports;
     }
 
-    public void setIsVideo(boolean isVideo) {
-        this.isVideo = isVideo;
+    public void setIs_video(boolean is_video) {
+        this.is_video = is_video;
     }
 
-    public Object getDistinguished() {
-        return distinguished;
+    public boolean getIs_video() {
+        return this.is_video;
     }
 
-    public void setDistinguished(Object distinguished) {
+    public void setDistinguished(String distinguished) {
         this.distinguished = distinguished;
     }
+
+    public String getDistinguished() {
+        return this.distinguished;
+    }
+
 }

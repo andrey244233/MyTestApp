@@ -33,12 +33,6 @@ public class Model {
         picturesRetrofit.getPicturesUrlsViaRetrofit(urlType, context);
     }
 
-    public void setAdapter(Context context, ArrayList<Picture> pictures, RecyclerView recyclerView) {
-        picturesAdapter = new PicturesAdapter(context, pictures);
-        recyclerView.setAdapter(picturesAdapter);
-        setRecyclerViewLayoutManager(context, recyclerView);
-    }
-
 
     public BaseFragment getFragmentInstance(int id) {
         NavigationRouter navigationRouter = new NavigationRouter();
@@ -48,10 +42,9 @@ public class Model {
 
     public ArrayList<Picture> createPictureObjectsWithUrls(ArrayList<String> urls) {
         Log.v("tag", "createPictureObjectsWithUrls/ URL SIZE  == " + urls.size());
-        ArrayList<String> urlsForPicture = urls;
         ArrayList<Picture> pictures = new ArrayList<>();
-        for (int i = 0; i < urlsForPicture.size(); i++) {
-            String url = urlsForPicture.get(i);
+        for (int i = 0; i < urls.size(); i++) {
+            String url = urls.get(i);
             pictures.add(new Picture(url));
         }
         return pictures;
@@ -64,15 +57,15 @@ public class Model {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    public void setRecyclerViewLayoutManager(Context context, RecyclerView recyclerView) {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return picturesAdapter.getItemViewType(position);
-            }
-        });
-        recyclerView.setLayoutManager(gridLayoutManager);
-    }
+//    public void setRecyclerViewLayoutManager(Context context, RecyclerView recyclerView) {
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false);
+//        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                return picturesAdapter.getItemViewType(position);
+//            }
+//        });
+//        recyclerView.setLayoutManager(gridLayoutManager);
+//    }
 }
 
