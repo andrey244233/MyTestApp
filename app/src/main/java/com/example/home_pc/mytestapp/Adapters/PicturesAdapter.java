@@ -1,6 +1,8 @@
 package com.example.home_pc.mytestapp.Adapters;
 
 import android.content.Context;
+import android.nfc.Tag;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,15 +19,18 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
     private ArrayList<Picture> listData;
     private Context context;
 
-    public PicturesAdapter(Context context, ArrayList<Picture> listData) {
+    public PicturesAdapter(Context context) {
         this.context = context;
-        this.listData = listData;
+    }
+
+    public void setListData(ArrayList<Picture> pictures){
+        this.listData = pictures;
     }
 
     @Override
     public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.v("tag", "PICTURES ADAPTER CONTEXT empty = " + context.toString().isEmpty() );
-        View view = LayoutInflater.from(context).inflate(R.layout.picture_item, parent, false);
+        View view =  LayoutInflater.from(context).inflate(R.layout.picture_item, parent, false);
         return new PictureViewHolder(view);
     }
 
@@ -42,6 +47,9 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
 
     @Override
     public int getItemCount() {
+        if(listData == null) {
+        return 0;
+        }
         return listData.size();
     }
 
@@ -56,10 +64,17 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 2 == 0) {
-            return 1;
-        }
-        return 2;
+//        Log.v("tag", "POSITION = " + position);
+//        if (position % 2 == 0) {
+//            return 1;
+//        }
+//        return 2;
+        return position % 2;
+    }
+
+    public void setData(ArrayList<Picture> listData){
+        this.listData = listData;
+        notifyDataSetChanged();
     }
 
 }

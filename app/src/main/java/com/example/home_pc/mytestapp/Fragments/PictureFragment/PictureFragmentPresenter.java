@@ -1,26 +1,21 @@
 package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.View;
 
 import com.example.home_pc.mytestapp.Model;
-import com.example.home_pc.mytestapp.Picture;
-
-import java.util.ArrayList;
-
-/**
- * Created by HOME_PC on 22.11.2017.
- */
+import com.example.home_pc.mytestapp.PicturesRetrofit;
 
 public class PictureFragmentPresenter {
+    private Model model;
 
-    private Model model = new Model();
+    public PictureFragmentPresenter() {
+        model = new Model();
+    }
 
 
-
-    public void getPicturesFromApi(String urlType, Context context) {
-        model.getPictureFromApi(urlType, context);
+    public void getPicturesFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback) {
+        model.getPictureFromApi(urlType, responseCallback);
     }
 
     public boolean checkAccesToInternet(Context context) {
@@ -29,11 +24,6 @@ public class PictureFragmentPresenter {
 
     public PictureFragment getFragmentInstance() {
         return new PictureFragment();
-    }
-
-    public void returnPictures(ArrayList<Picture> pictures) {
-        PictureFragment fragment = getFragmentInstance();
-        fragment.getPictures(pictures);
     }
 
 }

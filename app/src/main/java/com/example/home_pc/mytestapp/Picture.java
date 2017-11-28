@@ -1,6 +1,5 @@
 package com.example.home_pc.mytestapp;
 
-
 public class Picture {
     String url;
 
