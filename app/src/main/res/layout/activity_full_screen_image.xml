@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@drawable/cat"
+    tools:context="com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivity">
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:layout_marginBottom="38dp"
+        android:id="@+id/imageForPicture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/cat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageForPicture"
+        app:layout_constraintVertical_bias="0.891">
+
+        <ImageButton
+            android:id="@+id/btn_before"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_navigate_before_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_navigate_next_black_24dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
