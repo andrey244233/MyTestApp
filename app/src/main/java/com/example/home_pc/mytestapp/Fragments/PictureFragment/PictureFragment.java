@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.example.home_pc.mytestapp.Adapters.PicturesAdapter;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.PicturesRetrofit;
 import com.example.home_pc.mytestapp.R;
+
 import java.util.ArrayList;
 
 
@@ -24,7 +26,7 @@ import java.util.ArrayList;
  * Use the {@link PictureFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PictureFragment extends BaseFragment implements View.OnClickListener { //PicturesRetrofit.ResponseCallback {
+public class PictureFragment extends BaseFragment implements View.OnClickListener, PicturesAdapter.ItemClickCallback { //PicturesRetrofit.ResponseCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,6 +41,8 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private PicturesRetrofit.ResponseCallback responseCallback;
     public static PictureFragment fragment;
     View rootView;
+    public ArrayList<Picture> picturesForGallery = new ArrayList<>();
+    private RecyclerView.LayoutManager layoutManager;
 
 
     public PictureFragment() {
@@ -79,9 +83,11 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         btnNew.setOnClickListener(this);
         Button btnTop = rootView.findViewById(R.id.btn_top);
         btnTop.setOnClickListener(this);
+        Button btnChangeLayout = rootView.findViewById(R.id.btn_change_layout);
+        btnChangeLayout.setOnClickListener(this);
         recyclerView = rootView.findViewById(R.id.recycler_view_for_pictures);
         recyclerView.setHasFixedSize(true);
-        setRecyclerViewLayoutManager(recyclerView);
+        setGridLayoutManager();
         picturesAdapter = new PicturesAdapter(getActivity());
         recyclerView.setAdapter(picturesAdapter);
         return rootView;
@@ -90,12 +96,14 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       // pictureFragmentPresenter = new PictureFragmentPresenter();
+        picturesAdapter.setItemClickCallback(this);
         responseCallback = new PicturesRetrofit.ResponseCallback() {
             @Override
             public void response(ArrayList<Picture> pictures) {
                 picturesAdapter.setData(pictures);
+                picturesForGallery = pictures;
             }
+
         };
     }
 
@@ -115,10 +123,22 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
                 urlType = URL_TYPE_FOR_TOP_PICTURES;
                 pictureFragmentPresenter.getPicturesFromApi(urlType, responseCallback);
                 break;
+            case R.id.btn_change_layout:
+                changeLayoutManager();
+                break;
         }
     }
 
-    public void setRecyclerViewLayoutManager(RecyclerView recyclerView) {
+    private void changeLayoutManager() {
+        layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            setLinearLayoutManager();
+        } else {
+            setGridLayoutManager();
+        }
+    }
+
+    public void setGridLayoutManager() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -130,5 +150,15 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
             }
         });
         recyclerView.setLayoutManager(gridLayoutManager);
+    }
+
+    private void setLinearLayoutManager() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        pictureFragmentPresenter.getPicturesForGallery(picturesForGallery, position, getActivity());
     }
 }

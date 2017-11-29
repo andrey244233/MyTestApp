@@ -1,9 +1,11 @@
 package com.example.home_pc.mytestapp;
 
-public class Picture {
+import java.io.Serializable;
+
+public class Picture implements Serializable {
     String url;
 
-    public Picture() {
+    public Picture()  {
     }
 
     public Picture(String url) {
