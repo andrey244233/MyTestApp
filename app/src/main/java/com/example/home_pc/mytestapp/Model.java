@@ -36,6 +36,7 @@ public class Model {
             pictures.add(new Picture(url));
         }
         return pictures;
+
     }
 
     public boolean checkAccesToInternet(Context context) {
