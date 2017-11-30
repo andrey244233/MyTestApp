@@ -47,6 +47,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
 
     public PictureFragment() {
         pictureFragmentPresenter = new PictureFragmentPresenter();
+
     }
 
     /**
