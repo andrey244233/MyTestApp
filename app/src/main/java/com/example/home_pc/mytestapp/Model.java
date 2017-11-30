@@ -4,15 +4,23 @@ import android.content.Context;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.view.Display;
 import android.view.WindowManager;
 
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
 import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivityPresenter;
+import com.github.chrisbanes.photoview.PhotoView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static android.net.Uri.parse;
+
 public class Model {
+    public static final int SCREEN_WIDTH = 0;
+    public static final int SCREEN_HEIGHT = 1;
+
     FullScreenImageActivityPresenter fullScreenImageActivityPresenter;
 
     public Model() {
@@ -58,6 +66,13 @@ public class Model {
         int height = Integer.parseInt(String.valueOf(size.y));
         int screenParams[] = {width, height};
         return screenParams;
+    }
+
+    public Uri changeImage(int position, ArrayList<Picture> pictures){
+        Picture currentPicture = pictures.get(position);
+        String url = currentPicture.getUrl();
+        Uri uri = Uri.parse(url);
+        return uri;
     }
 }
 

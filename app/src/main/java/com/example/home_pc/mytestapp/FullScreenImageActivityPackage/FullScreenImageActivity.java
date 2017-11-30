@@ -30,13 +30,13 @@ public class FullScreenImageActivity extends AppCompatActivity implements View.O
     private int screenHeight;
     private FullScreenImageActivityPresenter presenter;
     private int[] screenParams = new int[2];
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_image);
         ButterKnife.bind(this);
-
         btnBefore.setOnClickListener(this);
         btnNext.setOnClickListener(this);
         position = getIntent().getIntExtra(FullScreenImageActivityPresenter.POSITION, 0);
@@ -49,11 +49,11 @@ public class FullScreenImageActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_before:
-                position = position - 1;
+                position -= 1;
                 changeImage(position);
                 break;
             case R.id.btn_next:
-                position = position + 1;
+                position += 1;
                 changeImage(position);
                 break;
         }
@@ -68,10 +68,7 @@ public class FullScreenImageActivity extends AppCompatActivity implements View.O
             this.position = 0;
             position = 0;
         }
-        Picture currentPicture = pictures.get(position);
-        String url = currentPicture.getUrl();
-        Uri uri = Uri.parse(url);
-
+        uri = presenter.changeImage(position, pictures);
         Picasso.with(this)
                 .load(uri)
                 .centerCrop()
@@ -81,7 +78,7 @@ public class FullScreenImageActivity extends AppCompatActivity implements View.O
 
     private void setScreenSize() {
         presenter = new FullScreenImageActivityPresenter();
-        screenParams = presenter.getScreenSize(this);
+        int[] screenParams = presenter.getScreenSize(this);
         screenWidth = screenParams[0];
         screenHeight = screenParams[1];
     }
