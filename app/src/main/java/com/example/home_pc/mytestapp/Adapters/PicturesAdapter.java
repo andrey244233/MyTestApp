@@ -18,6 +18,15 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
 
     private ArrayList<Picture> listData;
     private Context context;
+    private ItemClickCallback itemClickCallback;
+
+    public interface ItemClickCallback{
+        void onItemClick(int position);
+    }
+
+    public void setItemClickCallback(ItemClickCallback itemClickCallback){
+        this.itemClickCallback = itemClickCallback;
+    }
 
     public PicturesAdapter(Context context) {
         this.context = context;
@@ -25,6 +34,12 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
 
     public void setListData(ArrayList<Picture> pictures){
         this.listData = pictures;
+    }
+
+    public Picture getItemByPosition(int position){
+        Picture picture = new Picture();
+        picture = listData.get(position);
+        return picture;
     }
 
     @Override
@@ -53,28 +68,26 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
         return listData.size();
     }
 
-    class PictureViewHolder extends RecyclerView.ViewHolder {
+    public void setData(ArrayList<Picture> listData){
+        this.listData = listData;
+        notifyDataSetChanged();
+    }
+
+    class PictureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView pictureHolder;
 
         public PictureViewHolder(View itemView) {
             super(itemView);
             pictureHolder = itemView.findViewById(R.id.image_view_for_picture);
+            pictureHolder.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View view) {
+            if(view.getId()== R.id.image_view_for_picture) {
+                itemClickCallback.onItemClick(getAdapterPosition());
+            }
         }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-//        Log.v("tag", "POSITION = " + position);
-//        if (position % 2 == 0) {
-//            return 1;
-//        }
-//        return 2;
-        return position % 2;
-    }
-
-    public void setData(ArrayList<Picture> listData){
-        this.listData = listData;
-        notifyDataSetChanged();
-    }
 
 }
