@@ -161,4 +161,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     public void onItemClick(int position) {
         pictureFragmentPresenter.getPicturesForGallery(picturesForGallery, position, getActivity());
     }
+
+
 }
