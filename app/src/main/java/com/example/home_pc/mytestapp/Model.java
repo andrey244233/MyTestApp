@@ -9,7 +9,10 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
+import com.example.home_pc.mytestapp.Fragments.PictureFragment.PictureFragmentPresenter;
+import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivity;
 import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivityPresenter;
+import com.example.home_pc.mytestapp.MainActivityPackage.MainActivityPresenter;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
@@ -20,12 +23,28 @@ import static android.net.Uri.parse;
 public class Model {
     public static final int SCREEN_WIDTH = 0;
     public static final int SCREEN_HEIGHT = 1;
+    private FullScreenImageActivityPresenter fullScreenImageActivityPresenter;
+    private MainActivityPresenter mainActivityPresenter;
+    private PictureFragmentPresenter pictureFragmentPresenter;
 
-    FullScreenImageActivityPresenter fullScreenImageActivityPresenter;
+
+    public Model(FullScreenImageActivityPresenter fullScreenImageActivityPresenter) {
+        this.fullScreenImageActivityPresenter = fullScreenImageActivityPresenter;
+    }
+
+    public Model(MainActivityPresenter mainActivityPresenter) {
+        this.mainActivityPresenter = mainActivityPresenter;
+    }
+
+    public Model(PictureFragmentPresenter pictureFragmentPresenter) {
+        this.pictureFragmentPresenter = pictureFragmentPresenter;
+    }
+
 
     public Model() {
-        fullScreenImageActivityPresenter = new FullScreenImageActivityPresenter();
+
     }
+
 
     public void getPictureFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback) {
         PicturesRetrofit picturesRetrofit = new PicturesRetrofit(responseCallback);
@@ -68,7 +87,7 @@ public class Model {
         return screenParams;
     }
 
-    public Uri changeImage(int position, ArrayList<Picture> pictures){
+    public Uri changeImage(int position, ArrayList<Picture> pictures) {
         Picture currentPicture = pictures.get(position);
         String url = currentPicture.getUrl();
         Uri uri = Uri.parse(url);

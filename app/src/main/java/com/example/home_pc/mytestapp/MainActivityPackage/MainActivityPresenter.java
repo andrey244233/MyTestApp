@@ -8,9 +8,14 @@ import com.example.home_pc.mytestapp.Model;
 
 public class MainActivityPresenter {
     Model model;
+    MainActivity mainActivity;
+
+    public MainActivityPresenter(MainActivity mainActivity) {
+        this.model = new Model(this);
+        this.mainActivity = mainActivity;
+    }
 
     public BaseFragment openScreen(int id) {
-        model = new Model();
         return model.getFragmentInstance(id);
     }
 

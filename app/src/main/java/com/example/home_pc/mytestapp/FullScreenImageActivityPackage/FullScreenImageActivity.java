@@ -34,6 +34,7 @@ public class FullScreenImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_screen_image);
         ButterKnife.bind(this);
 
+        presenter = new FullScreenImageActivityPresenter(this);
         position = getIntent().getIntExtra(FullScreenImageActivityPresenter.POSITION, 0);
         pictures = (ArrayList<Picture>) getIntent().getSerializableExtra(FullScreenImageActivityPresenter.PICTURES);
         setScreenSize();
@@ -41,7 +42,6 @@ public class FullScreenImageActivity extends AppCompatActivity {
         swipe = new Swipe(300, 300);
         swipe.setListener(swipeListener);
     }
-
 
     mySwipeListener swipeListener = new mySwipeListener() {
         @Override
@@ -77,7 +77,6 @@ public class FullScreenImageActivity extends AppCompatActivity {
     }
 
     private void setScreenSize() {
-        presenter = new FullScreenImageActivityPresenter();
         int[] screenParams = presenter.getScreenSize(this);
         screenWidth = screenParams[0];
         screenHeight = screenParams[1];

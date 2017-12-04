@@ -2,6 +2,7 @@ package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.content.Context;
 
+import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivityPresenter;
 import com.example.home_pc.mytestapp.Model;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.PicturesRetrofit;
@@ -9,10 +10,17 @@ import com.example.home_pc.mytestapp.PicturesRetrofit;
 import java.util.ArrayList;
 
 public class PictureFragmentPresenter {
-    private Model model;
+   Model model;
+   PictureFragment pictureFragment;
 
-    public PictureFragmentPresenter() {
-        model = new Model();
+    public PictureFragmentPresenter(PictureFragment pictureFragment) {
+        FullScreenImageActivityPresenter fullScreenImageActivityPresenter = new FullScreenImageActivityPresenter();
+        this.pictureFragment = pictureFragment;
+        model = new Model(fullScreenImageActivityPresenter);
+    }
+
+    public PictureFragmentPresenter(){
+        model = new Model(this);
     }
 
     public void getPicturesFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback) {
@@ -27,7 +35,7 @@ public class PictureFragmentPresenter {
         return new PictureFragment();
     }
 
-   public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context){
+    public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {
         model.getPicturesForGallery(picturesForGallery, position, context);
-   }
+    }
 }

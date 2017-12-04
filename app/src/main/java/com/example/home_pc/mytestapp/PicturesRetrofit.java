@@ -38,7 +38,7 @@ public class PicturesRetrofit {
         Retrofit retrofit = builder.build();
         RetrofitInterface client = retrofit.create(RetrofitInterface.class);
 
-        Call<RootObject> call = client.getChilds(type, 100);
+        Call<RootObject> call = client.getChilds(type, 4);
         call.enqueue(new Callback<RootObject>() {
             @Override
             public void onResponse(Call<RootObject> call, Response<RootObject> response) {

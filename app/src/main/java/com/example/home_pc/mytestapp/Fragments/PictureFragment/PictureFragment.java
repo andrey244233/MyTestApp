@@ -44,12 +44,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     public ArrayList<Picture> picturesForGallery = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
 
-
-    public PictureFragment() {
-        pictureFragmentPresenter = new PictureFragmentPresenter();
-
-    }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -97,6 +91,9 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+       pictureFragmentPresenter = new PictureFragmentPresenter(this);
+
         picturesAdapter.setItemClickCallback(this);
         responseCallback = new PicturesRetrofit.ResponseCallback() {
             @Override

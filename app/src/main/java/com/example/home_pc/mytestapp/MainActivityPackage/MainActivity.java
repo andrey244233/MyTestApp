@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static final int MUSIC_FRAGMENT = 0;
     public static final int PICTURE_FRAGMENT = 1;
+    private MainActivityPresenter mainActivityPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mainActivityPresenter = new MainActivityPresenter(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -75,11 +78,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
 
     private BaseFragment openScreen(int id) {
-        MainActivityPresenter mainActivityPresenter = new MainActivityPresenter();
         return mainActivityPresenter.openScreen(id);
     }
 

@@ -12,9 +12,20 @@ import com.github.chrisbanes.photoview.PhotoView;
 import java.util.ArrayList;
 
 public class FullScreenImageActivityPresenter {
-    private Model model;
+
     public static final String PICTURES = "pictures";
     public static final String POSITION = "position";
+    Model model;
+    FullScreenImageActivity fullScreenImageActivity;
+
+    public FullScreenImageActivityPresenter(FullScreenImageActivity fullScreenImageActivity) {
+        this.fullScreenImageActivity = fullScreenImageActivity;
+        model = new Model(this);
+    }
+
+    public FullScreenImageActivityPresenter() {
+
+    }
 
     public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {
         Intent intent = new Intent(context, FullScreenImageActivity.class);
@@ -24,11 +35,10 @@ public class FullScreenImageActivityPresenter {
     }
 
     public int[] getScreenSize(Context context) {
-        model = new Model();
         return model.getScreenSize(context);
     }
 
-    public Uri changeImage(int position, ArrayList<Picture> pictures){
-        return model.changeImage( position, pictures);
+    public Uri changeImage(int position, ArrayList<Picture> pictures) {
+        return model.changeImage(position, pictures);
     }
 }
