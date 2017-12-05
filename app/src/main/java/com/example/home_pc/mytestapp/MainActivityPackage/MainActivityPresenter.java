@@ -10,9 +10,9 @@ public class MainActivityPresenter {
     Model model;
     MainActivity mainActivity;
 
-    public MainActivityPresenter(MainActivity mainActivity) {
-        this.model = new Model(this);
+    public MainActivityPresenter(MainActivity mainActivity, Model model) {
         this.mainActivity = mainActivity;
+        this.model = model;
     }
 
     public BaseFragment openScreen(int id) {

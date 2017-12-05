@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
 import com.example.home_pc.mytestapp.Fragments.PictureFragment.PictureFragment;
+import com.example.home_pc.mytestapp.Model;
 import com.example.home_pc.mytestapp.R;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,14 +27,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int PICTURE_FRAGMENT = 1;
     private MainActivityPresenter mainActivityPresenter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mainActivityPresenter = new MainActivityPresenter(this);
+        mainActivityPresenter = new MainActivityPresenter(this, new Model());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

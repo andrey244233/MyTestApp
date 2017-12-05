@@ -73,6 +73,8 @@ public class Model {
     }
 
     public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {
+        //здесь вызов презентора
+        fullScreenImageActivityPresenter = new FullScreenImageActivityPresenter();
         fullScreenImageActivityPresenter.getPicturesForGallery(picturesForGallery, position, context);
     }
 

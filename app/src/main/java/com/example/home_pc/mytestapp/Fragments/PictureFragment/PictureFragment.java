@@ -1,5 +1,6 @@
 package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.home_pc.mytestapp.Adapters.PicturesAdapter;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
+import com.example.home_pc.mytestapp.Model;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.PicturesRetrofit;
 import com.example.home_pc.mytestapp.R;
@@ -26,7 +29,7 @@ import java.util.ArrayList;
  * Use the {@link PictureFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PictureFragment extends BaseFragment implements View.OnClickListener, PicturesAdapter.ItemClickCallback { //PicturesRetrofit.ResponseCallback {
+public class PictureFragment extends BaseFragment implements View.OnClickListener, PicturesAdapter.ItemClickCallback, FragmentInterface { //PicturesRetrofit.ResponseCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,6 +46,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     View rootView;
     public ArrayList<Picture> picturesForGallery = new ArrayList<>();
     private RecyclerView.LayoutManager layoutManager;
+    private ProgressDialog progressDialog;
 
     /**
      * Use this factory method to create a new instance of
@@ -92,12 +96,13 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-       pictureFragmentPresenter = new PictureFragmentPresenter(this);
+        pictureFragmentPresenter = new PictureFragmentPresenter(returnFragment(), new Model());
 
         picturesAdapter.setItemClickCallback(this);
         responseCallback = new PicturesRetrofit.ResponseCallback() {
             @Override
             public void response(ArrayList<Picture> pictures) {
+                hideProgress();
                 picturesAdapter.setData(pictures);
                 picturesForGallery = pictures;
             }
@@ -114,10 +119,12 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         }
         switch (view.getId()) {
             case R.id.btn_new:
+                showProgress();
                 urlType = URL_TYPE_FOR_NEW_PICTURES;
                 pictureFragmentPresenter.getPicturesFromApi(urlType, responseCallback);
                 break;
             case R.id.btn_top:
+                showProgress();
                 urlType = URL_TYPE_FOR_TOP_PICTURES;
                 pictureFragmentPresenter.getPicturesFromApi(urlType, responseCallback);
                 break;
@@ -158,5 +165,22 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onItemClick(int position) {
         pictureFragmentPresenter.getPicturesForGallery(picturesForGallery, position, getActivity());
+    }
+
+    private void showProgress() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Please Wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    private void hideProgress() {
+        progressDialog.cancel();
+    }
+
+    @Override
+    public PictureFragment returnFragment() {
+        return fragment;
     }
 }

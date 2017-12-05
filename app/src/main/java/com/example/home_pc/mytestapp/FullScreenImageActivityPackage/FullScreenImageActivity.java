@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
+import com.example.home_pc.mytestapp.Model;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -34,7 +35,8 @@ public class FullScreenImageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_full_screen_image);
         ButterKnife.bind(this);
 
-        presenter = new FullScreenImageActivityPresenter(this);
+        presenter = new FullScreenImageActivityPresenter(this, new Model());
+
         position = getIntent().getIntExtra(FullScreenImageActivityPresenter.POSITION, 0);
         pictures = (ArrayList<Picture>) getIntent().getSerializableExtra(FullScreenImageActivityPresenter.PICTURES);
         setScreenSize();

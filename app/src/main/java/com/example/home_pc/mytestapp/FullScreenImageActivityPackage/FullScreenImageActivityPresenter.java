@@ -18,9 +18,9 @@ public class FullScreenImageActivityPresenter {
     Model model;
     FullScreenImageActivity fullScreenImageActivity;
 
-    public FullScreenImageActivityPresenter(FullScreenImageActivity fullScreenImageActivity) {
+    public FullScreenImageActivityPresenter(FullScreenImageActivity fullScreenImageActivity, Model model) {
         this.fullScreenImageActivity = fullScreenImageActivity;
-        model = new Model(this);
+        this.model = model;
     }
 
     public FullScreenImageActivityPresenter() {

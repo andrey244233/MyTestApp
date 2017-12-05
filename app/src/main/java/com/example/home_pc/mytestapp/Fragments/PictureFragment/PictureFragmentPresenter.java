@@ -10,16 +10,15 @@ import com.example.home_pc.mytestapp.PicturesRetrofit;
 import java.util.ArrayList;
 
 public class PictureFragmentPresenter {
-   Model model;
-   PictureFragment pictureFragment;
+    Model model;
+    PictureFragment pictureFragment;
 
-    public PictureFragmentPresenter(PictureFragment pictureFragment) {
-        FullScreenImageActivityPresenter fullScreenImageActivityPresenter = new FullScreenImageActivityPresenter();
+    public PictureFragmentPresenter(PictureFragment pictureFragment, Model model) {
         this.pictureFragment = pictureFragment;
-        model = new Model(fullScreenImageActivityPresenter);
+        this.model = model;
     }
 
-    public PictureFragmentPresenter(){
+    public PictureFragmentPresenter() {
         model = new Model(this);
     }
 
