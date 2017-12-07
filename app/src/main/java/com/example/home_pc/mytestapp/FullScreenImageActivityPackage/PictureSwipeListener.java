@@ -4,7 +4,7 @@ import android.view.MotionEvent;
 
 import com.github.pwittchen.swipe.library.SwipeListener;
 
-public abstract class mySwipeListener implements SwipeListener {
+public abstract class PictureSwipeListener implements SwipeListener {
     @Override
     public void onSwipingLeft(MotionEvent event) {
 

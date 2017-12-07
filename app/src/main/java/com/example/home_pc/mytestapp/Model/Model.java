@@ -1,4 +1,4 @@
-package com.example.home_pc.mytestapp;
+package com.example.home_pc.mytestapp.Model;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -7,44 +7,27 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.view.Display;
 import android.view.WindowManager;
-
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
-import com.example.home_pc.mytestapp.Fragments.PictureFragment.PictureFragmentPresenter;
-import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivity;
-import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivityPresenter;
-import com.example.home_pc.mytestapp.MainActivityPackage.MainActivityPresenter;
-import com.github.chrisbanes.photoview.PhotoView;
-import com.squareup.picasso.Picasso;
+import com.example.home_pc.mytestapp.Picture;
 
 import java.util.ArrayList;
 
-import static android.net.Uri.parse;
-
 public class Model {
-    public static final int SCREEN_WIDTH = 0;
-    public static final int SCREEN_HEIGHT = 1;
-    private FullScreenImageActivityPresenter fullScreenImageActivityPresenter;
-    private MainActivityPresenter mainActivityPresenter;
-    private PictureFragmentPresenter pictureFragmentPresenter;
 
+    private static Model modelInstance;
 
-    public Model(FullScreenImageActivityPresenter fullScreenImageActivityPresenter) {
-        this.fullScreenImageActivityPresenter = fullScreenImageActivityPresenter;
+    public static Model getModelInstance(){
+        if (modelInstance == null){
+            return new Model();
+        }
+        return modelInstance;
     }
 
-    public Model(MainActivityPresenter mainActivityPresenter) {
-        this.mainActivityPresenter = mainActivityPresenter;
+    public static void initModelInstance(){
+        if(modelInstance == null){
+            modelInstance = new Model();
+        }
     }
-
-    public Model(PictureFragmentPresenter pictureFragmentPresenter) {
-        this.pictureFragmentPresenter = pictureFragmentPresenter;
-    }
-
-
-    public Model() {
-
-    }
-
 
     public void getPictureFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback) {
         PicturesRetrofit picturesRetrofit = new PicturesRetrofit(responseCallback);
@@ -70,12 +53,6 @@ public class Model {
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
-    public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {
-        //здесь вызов презентора
-        fullScreenImageActivityPresenter = new FullScreenImageActivityPresenter();
-        fullScreenImageActivityPresenter.getPicturesForGallery(picturesForGallery, position, context);
     }
 
     public int[] getScreenSize(Context context) {

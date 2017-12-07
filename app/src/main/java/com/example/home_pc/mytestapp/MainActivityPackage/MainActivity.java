@@ -13,19 +13,15 @@ import android.view.MenuItem;
 
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
 import com.example.home_pc.mytestapp.Fragments.PictureFragment.PictureFragment;
-import com.example.home_pc.mytestapp.Model;
 import com.example.home_pc.mytestapp.R;
 
-import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainActivityView {
 
     public static final int MUSIC_FRAGMENT = 0;
     public static final int PICTURE_FRAGMENT = 1;
     private MainActivityPresenter mainActivityPresenter;
+    private Fragment showFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mainActivityPresenter = new MainActivityPresenter(this, new Model());
+        mainActivityPresenter = new MainActivityPresenter(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,13 +59,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Fragment showFragment = null;
         switch (item.getItemId()) {
             case R.id.nav_music:
-                showFragment = openScreen(MUSIC_FRAGMENT);
+                mainActivityPresenter.openScreen(MUSIC_FRAGMENT);
                 break;
             case R.id.nav_pictures:
-                showFragment = openScreen(PICTURE_FRAGMENT);
+                mainActivityPresenter.openScreen(PICTURE_FRAGMENT);
                 break;
         }
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.container, showFragment);
@@ -80,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private BaseFragment openScreen(int id) {
-        return mainActivityPresenter.openScreen(id);
+    @Override
+    public void getFragment(BaseFragment fragment) {
+       showFragment = fragment;
     }
-
 }

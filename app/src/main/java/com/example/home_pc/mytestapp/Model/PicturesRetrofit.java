@@ -1,4 +1,4 @@
-package com.example.home_pc.mytestapp;
+package com.example.home_pc.mytestapp.Model;
 
 import android.util.Log;
 
@@ -7,6 +7,8 @@ import com.example.home_pc.mytestapp.Api.Data;
 import com.example.home_pc.mytestapp.Api.Data_;
 import com.example.home_pc.mytestapp.Api.RetrofitInterface;
 import com.example.home_pc.mytestapp.Api.RootObject;
+import com.example.home_pc.mytestapp.Model.Model;
+import com.example.home_pc.mytestapp.Picture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +55,7 @@ public class PicturesRetrofit {
                     urls.add(url);
 
                     if (urls.size() == children.size()) {
-                        Model model = new Model();
+                        Model model = Model.getModelInstance();
                         ArrayList<Picture> pictures = new ArrayList<>();
                         pictures = model.createPictureObjectsWithUrls(urls);
                         callback.response(pictures);

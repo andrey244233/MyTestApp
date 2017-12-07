@@ -1,44 +1,30 @@
 package com.example.home_pc.mytestapp.FullScreenImageActivityPackage;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.widget.ImageView;
 
-import com.example.home_pc.mytestapp.Model;
+import com.example.home_pc.mytestapp.Model.Model;
 import com.example.home_pc.mytestapp.Picture;
-import com.github.chrisbanes.photoview.PhotoView;
 
 import java.util.ArrayList;
 
 public class FullScreenImageActivityPresenter {
 
-    public static final String PICTURES = "pictures";
-    public static final String POSITION = "position";
     Model model;
-    FullScreenImageActivity fullScreenImageActivity;
+    FullScreenImageActivityView fullScreenImageActivityView;
 
-    public FullScreenImageActivityPresenter(FullScreenImageActivity fullScreenImageActivity, Model model) {
-        this.fullScreenImageActivity = fullScreenImageActivity;
-        this.model = model;
+    public FullScreenImageActivityPresenter(FullScreenImageActivityView fullScreenImageActivityView) {
+        this.fullScreenImageActivityView = fullScreenImageActivityView;
+        model = Model.getModelInstance();
     }
 
-    public FullScreenImageActivityPresenter() {
-
+    public void getScreenSize(Context context) {
+        int[] screenParams = model.getScreenSize(context);
+        fullScreenImageActivityView.getScreenSize(screenParams);
     }
 
-    public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {
-        Intent intent = new Intent(context, FullScreenImageActivity.class);
-        intent.putExtra(PICTURES, picturesForGallery);
-        intent.putExtra(POSITION, position);
-        context.startActivity(intent);
-    }
-
-    public int[] getScreenSize(Context context) {
-        return model.getScreenSize(context);
-    }
-
-    public Uri changeImage(int position, ArrayList<Picture> pictures) {
-        return model.changeImage(position, pictures);
+    public void changeImage(int position, ArrayList<Picture> pictures) {
+        Uri uri = model.changeImage(position, pictures);
+        fullScreenImageActivityView.getUri(uri);
     }
 }

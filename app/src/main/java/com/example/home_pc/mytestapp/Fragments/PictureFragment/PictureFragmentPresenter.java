@@ -1,40 +1,48 @@
 package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.content.Context;
+import android.content.Intent;
 
-import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivityPresenter;
-import com.example.home_pc.mytestapp.Model;
+import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivity;
+import com.example.home_pc.mytestapp.Model.Model;
 import com.example.home_pc.mytestapp.Picture;
-import com.example.home_pc.mytestapp.PicturesRetrofit;
+import com.example.home_pc.mytestapp.Model.PicturesRetrofit;
 
 import java.util.ArrayList;
 
 public class PictureFragmentPresenter {
+
     Model model;
-    PictureFragment pictureFragment;
+    PictureFragmentView pictureFragmentView;
+    private PicturesRetrofit.ResponseCallback responseCallback;
 
-    public PictureFragmentPresenter(PictureFragment pictureFragment, Model model) {
-        this.pictureFragment = pictureFragment;
-        this.model = model;
+    public PictureFragmentPresenter(final PictureFragmentView pictureFragmentView) {
+        this.pictureFragmentView = pictureFragmentView;
+        model = Model.getModelInstance() ;
+
+        responseCallback = new PicturesRetrofit.ResponseCallback() {
+            @Override
+            public void response(ArrayList<Picture> pictures) {
+                pictureFragmentView.hideProgress();
+                pictureFragmentView.getItems(pictures);
+            }
+
+        };
     }
 
-    public PictureFragmentPresenter() {
-        model = new Model(this);
-    }
-
-    public void getPicturesFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback) {
+    public void getPicturesFromApi(String urlType) {
         model.getPictureFromApi(urlType, responseCallback);
     }
 
-    public boolean checkAccesToInternet(Context context) {
-        return model.checkAccesToInternet(context);
-    }
-
-    public PictureFragment getFragmentInstance() {
-        return new PictureFragment();
+    public void checkAccesToInternet(Context context) {
+        Boolean access = model.checkAccesToInternet(context);
+        pictureFragmentView.getAccessToInternet(access);
     }
 
     public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {
-        model.getPicturesForGallery(picturesForGallery, position, context);
+        Intent intent = new Intent(context, FullScreenImageActivity.class);
+        intent.putExtra(FullScreenImageActivity.PICTURES, picturesForGallery);
+        intent.putExtra(FullScreenImageActivity.POSITION, position);
+        context.startActivity(intent);
     }
 }

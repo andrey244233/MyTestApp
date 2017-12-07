@@ -3,7 +3,8 @@ package com.example.home_pc.mytestapp;
 import java.io.Serializable;
 
 public class Picture implements Serializable {
-    String url;
+
+   private String url;
 
     public Picture()  {
     }
