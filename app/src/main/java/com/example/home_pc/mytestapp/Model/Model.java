@@ -27,6 +27,7 @@ public class Model {
         if(modelInstance == null){
             modelInstance = new Model();
         }
+
     }
 
     public void getPictureFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback) {
