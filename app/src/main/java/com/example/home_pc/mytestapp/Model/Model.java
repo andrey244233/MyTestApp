@@ -1,6 +1,7 @@
 package com.example.home_pc.mytestapp.Model;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -73,5 +74,11 @@ public class Model {
         Uri uri = Uri.parse(url);
         return uri;
     }
+
+    public Configuration getScreenConfiguration(Context context){
+        return context.getResources().getConfiguration();
+    }
+
+
 }
 

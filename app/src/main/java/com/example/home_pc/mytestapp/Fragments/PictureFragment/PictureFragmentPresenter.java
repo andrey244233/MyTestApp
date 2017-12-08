@@ -2,6 +2,7 @@ package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 
 import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivity;
 import com.example.home_pc.mytestapp.Model.Model;
@@ -18,7 +19,7 @@ public class PictureFragmentPresenter {
 
     public PictureFragmentPresenter(final PictureFragmentView pictureFragmentView) {
         this.pictureFragmentView = pictureFragmentView;
-        model = Model.getModelInstance() ;
+        model = Model.getModelInstance();
 
         responseCallback = new PicturesRetrofit.ResponseCallback() {
             @Override
@@ -45,4 +46,11 @@ public class PictureFragmentPresenter {
         intent.putExtra(FullScreenImageActivity.POSITION, position);
         context.startActivity(intent);
     }
+
+    public void getScrenConfiguration(Context context) {
+        Configuration configuration = model.getScreenConfiguration(context);
+        pictureFragmentView.getScreenConfiguration(configuration);
+    }
+
+
 }

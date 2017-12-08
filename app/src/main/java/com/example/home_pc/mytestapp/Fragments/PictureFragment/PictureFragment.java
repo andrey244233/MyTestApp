@@ -1,8 +1,7 @@
 package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,10 @@ import com.example.home_pc.mytestapp.Adapters.PicturesAdapter;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
+
 import java.util.ArrayList;
+
+import static android.os.Build.ID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +42,9 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private PicturesAdapter picturesAdapter;
     public ArrayList<Picture> picturesForGallery = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private  Boolean access;
+    private Boolean access;
+    private String urlType = URL_TYPE_FOR_TOP_PICTURES;
+    public static final String PICTURES = "pictures";
 
     /**
      * Use this factory method to create a new instance of
@@ -80,7 +84,9 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         btnChangeLayout.setOnClickListener(this);
         recyclerView = rootView.findViewById(R.id.recycler_view_for_pictures);
         recyclerView.setHasFixedSize(true);
-        setGridLayoutManager();
+        recyclerView.setItemViewCacheSize(100);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
         picturesAdapter = new PicturesAdapter(getActivity());
         recyclerView.setAdapter(picturesAdapter);
         return rootView;
@@ -91,12 +97,22 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         pictureFragmentPresenter = new PictureFragmentPresenter(this);
         picturesAdapter.setItemClickCallback(this);
+
+        pictureFragmentPresenter.getScrenConfiguration(getActivity());
+        checkInternet();
+        if (access & savedInstanceState == null) {
+            showProgress();
+            pictureFragmentPresenter.getPicturesFromApi(urlType);
+            picturesAdapter.setData(picturesForGallery);
+        } else if (savedInstanceState != null) {
+            picturesForGallery = savedInstanceState.getParcelableArrayList(PICTURES);
+            picturesAdapter.setData(picturesForGallery);
+        }
     }
 
     @Override
     public void onClick(View view) {
-        String urlType;
-        pictureFragmentPresenter.checkAccesToInternet(getActivity());
+        checkInternet();
         if (!access) {
             Toast.makeText(getActivity(), getString(R.string.internet_not_available), Toast.LENGTH_LONG).show();
             return;
@@ -115,6 +131,13 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
             case R.id.btn_change_layout:
                 changeLayoutManager();
                 break;
+        }
+    }
+
+    private void checkInternet() {
+        pictureFragmentPresenter.checkAccesToInternet(getActivity());
+        if (!access) {
+            Toast.makeText(getActivity(), getString(R.string.internet_not_available), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -177,6 +200,27 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void getAccessToInternet(Boolean access) {
         this.access = access;
+    }
+
+    @Override
+    public void getScreenConfiguration(Configuration configuration) {
+        onConfigurationChanged(configuration);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration configuration) {
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setGridLayoutManager();
+        } else {
+            setLinearLayoutManager();
+        }
+        super.onConfigurationChanged(configuration);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(PICTURES, picturesForGallery);
     }
 
 }

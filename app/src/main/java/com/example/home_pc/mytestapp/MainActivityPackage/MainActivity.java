@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final int PICTURE_FRAGMENT = 1;
     private MainActivityPresenter mainActivityPresenter;
     private Fragment showFragment;
+    public static final String CURRENT_FRAGMENT = "currentFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +41,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.container, new PictureFragment());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
+        if(savedInstanceState != null){
+            showFragment = getFragmentManager().getFragment(savedInstanceState, CURRENT_FRAGMENT);
+        }else {
+            showFragment = new PictureFragment();
+        }
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.container, showFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
     }
 
     @Override
@@ -79,4 +84,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void getFragment(BaseFragment fragment) {
        showFragment = fragment;
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getFragmentManager().putFragment(outState, CURRENT_FRAGMENT, showFragment);
+    }
+
 }
