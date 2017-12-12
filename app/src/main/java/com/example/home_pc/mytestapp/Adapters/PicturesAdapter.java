@@ -3,6 +3,7 @@ package com.example.home_pc.mytestapp.Adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -61,6 +63,12 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
         Picture currentPicture = listData.get(position);
         String url = currentPicture.getUrl();
 
+        // Uri uri = Uri.parse(url);
+//        Picasso.with(context)
+//                .load(uri)
+//                .noFade()
+//                .resize(300, 200)
+//                .into(holder.pictureHolder);
         Glide.with(context)
                 .load(url)
                 .into(holder.pictureHolder);

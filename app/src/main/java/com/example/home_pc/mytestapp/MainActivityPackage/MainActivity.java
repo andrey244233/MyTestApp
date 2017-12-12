@@ -41,14 +41,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             showFragment = getFragmentManager().getFragment(savedInstanceState, CURRENT_FRAGMENT);
-        }else {
+        } else {
             showFragment = new PictureFragment();
         }
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.container, showFragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction().replace(R.id.container, showFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void getFragment(BaseFragment fragment) {
-       showFragment = fragment;
+        showFragment = fragment;
     }
 
     @Override

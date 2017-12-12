@@ -1,5 +1,7 @@
 package com.example.home_pc.mytestapp.Model;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.home_pc.mytestapp.Api.Child;
@@ -24,6 +26,9 @@ public class PicturesRetrofit {
 
     public static final String BASE_URL = "https://www.reddit.com/";
     private ResponseCallback callback;
+    public static final String REQUSET_FAILURE = "com.myapp.action.REQUSET_FAILURE";
+    public static final String BROADCAST_KEY = "ERROR";
+    private static final String ERROR_MESSAGE = "Error with network request, try later";
 
     public PicturesRetrofit(ResponseCallback callback) {
         this.callback = callback;
@@ -33,7 +38,7 @@ public class PicturesRetrofit {
         void response(ArrayList<Picture> pictures);
     }
 
-    public void getPicturesUrlsViaRetrofit(String type) {
+    public void getPicturesUrlsViaRetrofit(String type, final Context context) {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
@@ -66,6 +71,10 @@ public class PicturesRetrofit {
             @Override
             public void onFailure(Call<RootObject> call, Throwable t) {
                 Log.v("tag", "SOME ERROR");
+                Intent intent = new Intent();
+                intent.setAction(REQUSET_FAILURE);
+                intent.putExtra(BROADCAST_KEY, ERROR_MESSAGE);
+                context.sendBroadcast(intent);
             }
         });
     }

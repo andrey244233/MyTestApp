@@ -24,10 +24,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/Theme.AppCompat.DialogWhenLarge"
             android:name=".FullScreenImageActivityPackage.FullScreenImageActivity"
-    />
+            android:theme="@style/Theme.AppCompat.DialogWhenLarge" />
 
+        <receiver
+            android:name=".Model.MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="com.myapp.action.REQUSET_FAILURE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

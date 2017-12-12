@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class PictureFragmentPresenter {
 
-    Model model;
-    PictureFragmentView pictureFragmentView;
+    private Model model;
+    private PictureFragmentView pictureFragmentView;
     private PicturesRetrofit.ResponseCallback responseCallback;
 
     public PictureFragmentPresenter(final PictureFragmentView pictureFragmentView) {
@@ -27,12 +27,11 @@ public class PictureFragmentPresenter {
                 pictureFragmentView.hideProgress();
                 pictureFragmentView.getItems(pictures);
             }
-
         };
     }
 
-    public void getPicturesFromApi(String urlType) {
-        model.getPictureFromApi(urlType, responseCallback);
+    public void getPicturesFromApi(String urlType, Context context) {
+        model.getPictureFromApi(urlType, responseCallback, context);
     }
 
     public void checkAccesToInternet(Context context) {
@@ -51,6 +50,5 @@ public class PictureFragmentPresenter {
         Configuration configuration = model.getScreenConfiguration(context);
         pictureFragmentView.getScreenConfiguration(configuration);
     }
-
 
 }

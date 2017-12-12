@@ -12,4 +12,5 @@
     <string name="btn_new">New</string>
     <string name="btn_top">Top</string>
     <string name="btn_change_layout">Change Layout</string>
+    <string name="empty_view_text">Подключите интернет и попробуйте снова</string>
 </resources>

@@ -1,12 +1,14 @@
 package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.content.res.Configuration;
+import android.os.Parcelable;
 
 import com.example.home_pc.mytestapp.Picture;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public interface PictureFragmentView {
+public interface PictureFragmentView  {
 
     void getAccessToInternet(Boolean access);
 

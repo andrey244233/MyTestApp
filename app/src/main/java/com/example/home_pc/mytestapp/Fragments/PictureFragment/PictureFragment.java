@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.home_pc.mytestapp.Adapters.PicturesAdapter;
@@ -20,8 +21,6 @@ import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
 
 import java.util.ArrayList;
-
-import static android.os.Build.ID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,9 +41,10 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private PicturesAdapter picturesAdapter;
     public ArrayList<Picture> picturesForGallery = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private Boolean access;
+    private static Boolean mAccess;
     private String urlType = URL_TYPE_FOR_TOP_PICTURES;
     public static final String PICTURES = "pictures";
+    private LinearLayout emptyView;
 
     /**
      * Use this factory method to create a new instance of
@@ -100,9 +100,10 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
 
         pictureFragmentPresenter.getScrenConfiguration(getActivity());
         checkInternet();
-        if (access & savedInstanceState == null) {
+
+        if (mAccess & savedInstanceState == null) {
             showProgress();
-            pictureFragmentPresenter.getPicturesFromApi(urlType);
+            pictureFragmentPresenter.getPicturesFromApi(urlType, getActivity());
             picturesAdapter.setData(picturesForGallery);
         } else if (savedInstanceState != null) {
             picturesForGallery = savedInstanceState.getParcelableArrayList(PICTURES);
@@ -113,30 +114,33 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         checkInternet();
-        if (!access) {
-            Toast.makeText(getActivity(), getString(R.string.internet_not_available), Toast.LENGTH_LONG).show();
+        if (!mAccess) {
             return;
         }
         switch (view.getId()) {
             case R.id.btn_new:
                 showProgress();
                 urlType = URL_TYPE_FOR_NEW_PICTURES;
-                pictureFragmentPresenter.getPicturesFromApi(urlType);
+                pictureFragmentPresenter.getPicturesFromApi(urlType, getActivity());
                 break;
             case R.id.btn_top:
                 showProgress();
                 urlType = URL_TYPE_FOR_TOP_PICTURES;
-                pictureFragmentPresenter.getPicturesFromApi(urlType);
+                pictureFragmentPresenter.getPicturesFromApi(urlType, getActivity());
                 break;
             case R.id.btn_change_layout:
                 changeLayoutManager();
                 break;
         }
+        if(progressDialog != null){
+            hideProgress();
+        }
     }
+
 
     private void checkInternet() {
         pictureFragmentPresenter.checkAccesToInternet(getActivity());
-        if (!access) {
+        if (!mAccess) {
             Toast.makeText(getActivity(), getString(R.string.internet_not_available), Toast.LENGTH_LONG).show();
         }
     }
@@ -199,7 +203,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void getAccessToInternet(Boolean access) {
-        this.access = access;
+        mAccess = access;
     }
 
     @Override
