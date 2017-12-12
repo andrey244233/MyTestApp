@@ -37,6 +37,11 @@
                 <action android:name="com.myapp.action.REQUSET_FAILURE" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".Model.InternetAccessReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
     </application>
 
 </manifest>

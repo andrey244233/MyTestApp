@@ -11,6 +11,8 @@ import com.example.home_pc.mytestapp.Model.PicturesRetrofit;
 
 import java.util.ArrayList;
 
+import static com.example.home_pc.mytestapp.Model.InternetAccessReceiver.CHECK_INTERNET;
+
 public class PictureFragmentPresenter {
 
     private Model model;
@@ -35,8 +37,9 @@ public class PictureFragmentPresenter {
     }
 
     public void checkAccesToInternet(Context context) {
-        Boolean access = model.checkAccesToInternet(context);
-        pictureFragmentView.getAccessToInternet(access);
+        Intent intent = new Intent();
+        intent.setAction(CHECK_INTERNET);
+        context.sendBroadcast(intent);
     }
 
     public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {

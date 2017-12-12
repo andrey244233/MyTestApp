@@ -1,19 +1,14 @@
 package com.example.home_pc.mytestapp.FullScreenImageActivityPackage;
 
-import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
 import com.bumptech.glide.Glide;
-import com.example.home_pc.mytestapp.MainActivityPackage.MainActivity;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.github.pwittchen.swipe.library.Swipe;
-import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;

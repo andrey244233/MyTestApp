@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 public interface PictureFragmentView  {
 
-    void getAccessToInternet(Boolean access);
-
     void hideProgress();
 
     void getItems(ArrayList<Picture> items);

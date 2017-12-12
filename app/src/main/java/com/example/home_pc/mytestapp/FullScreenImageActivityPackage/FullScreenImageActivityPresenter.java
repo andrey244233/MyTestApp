@@ -1,8 +1,6 @@
 package com.example.home_pc.mytestapp.FullScreenImageActivityPackage;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 
 import com.example.home_pc.mytestapp.Model.Model;
 import com.example.home_pc.mytestapp.Picture;

@@ -14,9 +14,6 @@ public class MyReceiver extends BroadcastReceiver {
     private static final String ACTION_POWER_CONNECTED = "android.intent.action.ACTION_POWER_CONNECTED";
     private static final String ACTION_POWER_DISCONNECTED = "android.intent.action.ACTION_POWER_DISCONNECTED";
 
-    public MyReceiver() {
-    }
-
     @Override
     public void onReceive(final Context context, Intent intent) {
         if (intent.getAction().equals(ACTION_POWER_CONNECTED)) {

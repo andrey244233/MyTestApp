@@ -1,10 +1,6 @@
 package com.example.home_pc.mytestapp.FullScreenImageActivityPackage;
 
-import android.os.Parcelable;
-
-import java.io.Serializable;
-
-public interface FullScreenImageActivityView extends Serializable {
+public interface FullScreenImageActivityView {
 
     void getScreenSize(int[] screenParams);
 
