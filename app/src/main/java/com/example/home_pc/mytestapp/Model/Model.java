@@ -36,11 +36,6 @@ public class Model {
         }
     }
 
-    public void getPictureFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback, Context context) {
-        PicturesRetrofit picturesRetrofit = new PicturesRetrofit(responseCallback);
-        picturesRetrofit.getPicturesUrlsViaRetrofit(urlType, context);
-    }
-
     public BaseFragment getFragmentInstance(int id) {
         NavigationRouter navigationRouter = new NavigationRouter();
         return navigationRouter.getFragmentInstance(id);
@@ -53,13 +48,6 @@ public class Model {
             pictures.add(new Picture(url));
         }
         return pictures;
-    }
-
-    public boolean checkAccesToInternet(Context context) {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     public int[] getScreenSize(Context context) {

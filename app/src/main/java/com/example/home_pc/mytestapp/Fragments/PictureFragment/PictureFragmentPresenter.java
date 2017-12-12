@@ -18,10 +18,12 @@ public class PictureFragmentPresenter {
     private Model model;
     private PictureFragmentView pictureFragmentView;
     private PicturesRetrofit.ResponseCallback responseCallback;
+    private PicturesRetrofit picturesRetrofit;
 
     public PictureFragmentPresenter(final PictureFragmentView pictureFragmentView) {
         this.pictureFragmentView = pictureFragmentView;
         model = Model.getModelInstance();
+        picturesRetrofit = PicturesRetrofit.getPicturesRetrofitInstance();
 
         responseCallback = new PicturesRetrofit.ResponseCallback() {
             @Override
@@ -33,13 +35,7 @@ public class PictureFragmentPresenter {
     }
 
     public void getPicturesFromApi(String urlType, Context context) {
-        model.getPictureFromApi(urlType, responseCallback, context);
-    }
-
-    public void checkAccesToInternet(Context context) {
-        Intent intent = new Intent();
-        intent.setAction(CHECK_INTERNET);
-        context.sendBroadcast(intent);
+        picturesRetrofit.getPicturesUrlsViaRetrofit(urlType, context, responseCallback);
     }
 
     public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {

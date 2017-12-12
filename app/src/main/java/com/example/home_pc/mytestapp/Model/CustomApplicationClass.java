@@ -8,6 +8,7 @@ public class CustomApplicationClass extends Application {
     public void onCreate() {
         super.onCreate();
         Model.initModelInstance();
+        PicturesRetrofit.initRetrofitInstance();
     }
 
 

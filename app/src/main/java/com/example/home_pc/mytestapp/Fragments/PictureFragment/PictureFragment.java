@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.home_pc.mytestapp.Adapters.PicturesAdapter;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
+import com.example.home_pc.mytestapp.MainActivityPackage.MainActivity;
 import com.example.home_pc.mytestapp.Model.InternetAccessReceiver;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
@@ -103,7 +106,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         picturesAdapter.setItemClickCallback(this);
 
         pictureFragmentPresenter.getScrenConfiguration(getActivity());
-        checkInternet();
 
         if (accessToInternet & savedInstanceState == null) {
             showProgress();
@@ -117,7 +119,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        checkInternet();
         if (!accessToInternet) {
             return;
         }
@@ -142,10 +143,18 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void checkInternet() {
-        pictureFragmentPresenter.checkAccesToInternet(getActivity());
-        if (!accessToInternet) {
-            Toast.makeText(getActivity(), getString(R.string.internet_not_available), Toast.LENGTH_LONG).show();
-        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(accessToInternet){
+                    Toast.makeText(getActivity(), "Подключение к интернету установлено", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "Подключите интернет и нажмите кнопку", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, 10000);
     }
 
     @Override
@@ -229,12 +238,14 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         IntentFilter intentFilter = new IntentFilter(CHECK_INTERNET);
-        getActivity().registerReceiver(internetAccessReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(internetAccessReceiver, intentFilter);
+        checkInternet();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(internetAccessReceiver);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(internetAccessReceiver);
     }
+
 }

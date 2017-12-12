@@ -30,15 +30,28 @@ public class PicturesRetrofit {
     public static final String BROADCAST_KEY = "ERROR";
     private static final String ERROR_MESSAGE = "Error with network request, try later";
 
-    public PicturesRetrofit(ResponseCallback callback) {
-        this.callback = callback;
+
+    private static PicturesRetrofit picturesRetrofitInstance;
+
+      public static PicturesRetrofit getPicturesRetrofitInstance() {
+        if (picturesRetrofitInstance == null) {
+            return new PicturesRetrofit();
+        }
+        return picturesRetrofitInstance;
+    }
+
+    public static void initRetrofitInstance() {
+        if (picturesRetrofitInstance == null) {
+            picturesRetrofitInstance = new PicturesRetrofit();
+        }
     }
 
     public interface ResponseCallback {
         void response(ArrayList<Picture> pictures);
     }
 
-    public void getPicturesUrlsViaRetrofit(String type, final Context context) {
+    public void getPicturesUrlsViaRetrofit(String type, final Context context, ResponseCallback responseCallback) {
+          this.callback = responseCallback;
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
