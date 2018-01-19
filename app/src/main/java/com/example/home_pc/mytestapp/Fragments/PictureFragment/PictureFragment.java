@@ -1,8 +1,12 @@
 package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +55,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private ProgressDialog progressDialog;
     private String urlType = URL_TYPE_FOR_TOP_PICTURES;
     public static final String PICTURES = "pictures";
-    private InternetAccessReceiver internetAccessReceiver;
+    public InternetAccessReceiver internetAccessReceiver;
 
     /**
      * Use this factory method to create a new instance of
@@ -104,10 +109,13 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         pictureFragmentPresenter = new PictureFragmentPresenter(this);
         picturesAdapter.setItemClickCallback(this);
-
         pictureFragmentPresenter.getScrenConfiguration(getActivity());
+        checkInternet();
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        accessToInternet =  netInfo != null && netInfo.isConnectedOrConnecting();
 
-        if (accessToInternet & savedInstanceState == null) {
+        if (accessToInternet && savedInstanceState == null) {
             showProgress();
             pictureFragmentPresenter.getPicturesFromApi(urlType, getActivity());
             picturesAdapter.setData(picturesForGallery);
@@ -115,6 +123,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
             picturesForGallery = savedInstanceState.getParcelableArrayList(PICTURES);
             picturesAdapter.setData(picturesForGallery);
         }
+
     }
 
     @Override
@@ -154,7 +163,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
                 }
 
             }
-        }, 10000);
+        },  3000);
     }
 
     @Override
@@ -235,17 +244,16 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        IntentFilter intentFilter = new IntentFilter(CHECK_INTERNET);
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(internetAccessReceiver, intentFilter);
-        checkInternet();
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(internetAccessReceiver);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(internetAccessReceiver);
+    public void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter(CHECK_INTERNET);
+        getActivity().registerReceiver(internetAccessReceiver, intentFilter);
+        checkInternet();
     }
-
 }
