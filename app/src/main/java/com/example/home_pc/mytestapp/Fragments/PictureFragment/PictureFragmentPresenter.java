@@ -35,7 +35,8 @@ public class PictureFragmentPresenter {
     }
 
     public void getPicturesFromApi(String urlType, Context context) {
-        picturesRetrofit.getPicturesUrlsViaRetrofit(urlType, context, responseCallback);
+        picturesRetrofit.useRxJava(urlType, context, responseCallback);
+      //  picturesRetrofit.getPicturesUrlsViaRetrofit(urlType, context, responseCallback);
     }
 
     public void getPicturesForGallery(ArrayList<Picture> picturesForGallery, int position, Context context) {
