@@ -1,7 +1,6 @@
 package com.example.home_pc.mytestapp.FullScreenImageActivityPackage;
 
 import android.content.Context;
-import android.net.Uri;
 
 import com.example.home_pc.mytestapp.Model.Model;
 import com.example.home_pc.mytestapp.Picture;
@@ -12,6 +11,7 @@ public class FullScreenImageActivityPresenter {
 
     Model model;
     FullScreenImageActivityView fullScreenImageActivityView;
+    public static final String CHECK_INTERNET_ACTION = "com.myapp.action.CHECK_INTERNET";
 
     public FullScreenImageActivityPresenter(FullScreenImageActivityView fullScreenImageActivityView) {
         this.fullScreenImageActivityView = fullScreenImageActivityView;
@@ -24,7 +24,7 @@ public class FullScreenImageActivityPresenter {
     }
 
     public void changeImage(int position, ArrayList<Picture> pictures) {
-        Uri uri = model.changeImage(position, pictures);
-        fullScreenImageActivityView.getUri(uri);
+        String url = model.changeImage(position, pictures);
+        fullScreenImageActivityView.getUrl(url);
     }
 }

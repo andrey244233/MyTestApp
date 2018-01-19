@@ -1,22 +1,22 @@
 package com.example.home_pc.mytestapp.FullScreenImageActivityPackage;
 
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
+import com.bumptech.glide.Glide;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.github.pwittchen.swipe.library.Swipe;
-import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FullScreenImageActivity extends AppCompatActivity implements FullScreenImageActivityView {
+public class FullScreenImageActivity extends AppCompatActivity implements FullScreenImageActivityView, Serializable {
 
     @BindView(R.id.imageForPicture)
     PhotoView imageViewForPicture;
@@ -25,7 +25,7 @@ public class FullScreenImageActivity extends AppCompatActivity implements FullSc
     private int screenWidth;
     private int screenHeight;
     private FullScreenImageActivityPresenter presenter;
-    private Uri uri;
+    private String url;
     private Swipe swipe;
     public static final String PICTURES = "pictures";
     public static final String POSITION = "position";
@@ -35,6 +35,7 @@ public class FullScreenImageActivity extends AppCompatActivity implements FullSc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen_image);
         ButterKnife.bind(this);
+
         presenter = new FullScreenImageActivityPresenter(this);
 
         position = getIntent().getIntExtra(POSITION, 0);
@@ -78,10 +79,9 @@ public class FullScreenImageActivity extends AppCompatActivity implements FullSc
             position = 0;
         }
         presenter.changeImage(position, pictures);
-        Picasso.with(this)
-                .load(uri)
-                .centerCrop()
-                .resize(screenWidth, screenHeight)
+
+        Glide.with(this)
+                .load(url)
                 .into(imageViewForPicture);
     }
 
@@ -92,9 +92,10 @@ public class FullScreenImageActivity extends AppCompatActivity implements FullSc
     }
 
     @Override
-    public void getUri(Uri uri) {
-        this.uri = uri;
+    public void getUrl(String url) {
+        this.url = url;
     }
+
 }
 
 

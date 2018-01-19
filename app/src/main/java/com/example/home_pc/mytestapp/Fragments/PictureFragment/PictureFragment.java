@@ -1,11 +1,13 @@
 package com.example.home_pc.mytestapp.Fragments.PictureFragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +19,15 @@ import android.widget.Toast;
 
 import com.example.home_pc.mytestapp.Adapters.PicturesAdapter;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
+import com.example.home_pc.mytestapp.MainActivityPackage.MainActivity;
+import com.example.home_pc.mytestapp.Model.InternetAccessReceiver;
 import com.example.home_pc.mytestapp.Picture;
 import com.example.home_pc.mytestapp.R;
+
 import java.util.ArrayList;
+
+import static com.example.home_pc.mytestapp.Model.InternetAccessReceiver.CHECK_INTERNET;
+import static com.example.home_pc.mytestapp.Model.InternetAccessReceiver.accessToInternet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +48,9 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private PicturesAdapter picturesAdapter;
     public ArrayList<Picture> picturesForGallery = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private  Boolean access;
+    private String urlType = URL_TYPE_FOR_TOP_PICTURES;
+    public static final String PICTURES = "pictures";
+    private InternetAccessReceiver internetAccessReceiver;
 
     /**
      * Use this factory method to create a new instance of
@@ -72,6 +82,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_picture, container, false);
+        internetAccessReceiver = new InternetAccessReceiver();
         Button btnNew = rootView.findViewById(R.id.btn_new);
         btnNew.setOnClickListener(this);
         Button btnTop = rootView.findViewById(R.id.btn_top);
@@ -80,7 +91,9 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         btnChangeLayout.setOnClickListener(this);
         recyclerView = rootView.findViewById(R.id.recycler_view_for_pictures);
         recyclerView.setHasFixedSize(true);
-        setGridLayoutManager();
+        recyclerView.setItemViewCacheSize(100);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_LOW);
         picturesAdapter = new PicturesAdapter(getActivity());
         recyclerView.setAdapter(picturesAdapter);
         return rootView;
@@ -91,31 +104,57 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         pictureFragmentPresenter = new PictureFragmentPresenter(this);
         picturesAdapter.setItemClickCallback(this);
+
+        pictureFragmentPresenter.getScrenConfiguration(getActivity());
+
+        if (accessToInternet & savedInstanceState == null) {
+            showProgress();
+            pictureFragmentPresenter.getPicturesFromApi(urlType, getActivity());
+            picturesAdapter.setData(picturesForGallery);
+        } else if (savedInstanceState != null) {
+            picturesForGallery = savedInstanceState.getParcelableArrayList(PICTURES);
+            picturesAdapter.setData(picturesForGallery);
+        }
     }
 
     @Override
     public void onClick(View view) {
-        String urlType;
-        pictureFragmentPresenter.checkAccesToInternet(getActivity());
-        if (!access) {
-            Toast.makeText(getActivity(), getString(R.string.internet_not_available), Toast.LENGTH_LONG).show();
+        if (!accessToInternet) {
             return;
         }
         switch (view.getId()) {
             case R.id.btn_new:
                 showProgress();
                 urlType = URL_TYPE_FOR_NEW_PICTURES;
-                pictureFragmentPresenter.getPicturesFromApi(urlType);
+                pictureFragmentPresenter.getPicturesFromApi(urlType, getActivity());
                 break;
             case R.id.btn_top:
                 showProgress();
                 urlType = URL_TYPE_FOR_TOP_PICTURES;
-                pictureFragmentPresenter.getPicturesFromApi(urlType);
+                pictureFragmentPresenter.getPicturesFromApi(urlType, getActivity());
                 break;
             case R.id.btn_change_layout:
                 changeLayoutManager();
                 break;
         }
+        if (progressDialog != null) {
+            hideProgress();
+        }
+    }
+
+    private void checkInternet() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(accessToInternet){
+                    Toast.makeText(getActivity(), "Подключение к интернету установлено", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "Подключите интернет и нажмите кнопку", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, 10000);
     }
 
     @Override
@@ -175,8 +214,38 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
-    public void getAccessToInternet(Boolean access) {
-        this.access = access;
+    public void getScreenConfiguration(Configuration configuration) {
+        onConfigurationChanged(configuration);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration configuration) {
+        if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setGridLayoutManager();
+        } else {
+            setLinearLayoutManager();
+        }
+        super.onConfigurationChanged(configuration);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(PICTURES, picturesForGallery);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter(CHECK_INTERNET);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(internetAccessReceiver, intentFilter);
+        checkInternet();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(internetAccessReceiver);
     }
 
 }

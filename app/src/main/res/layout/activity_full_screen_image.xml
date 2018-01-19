@@ -9,6 +9,7 @@
     tools:context="com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivity">
 
     <com.github.chrisbanes.photoview.PhotoView
+        android:scaleType="centerCrop"
         android:id="@+id/imageForPicture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

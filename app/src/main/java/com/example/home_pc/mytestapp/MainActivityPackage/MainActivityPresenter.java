@@ -16,6 +16,4 @@ public class MainActivityPresenter {
         BaseFragment fragment = model.getFragmentInstance(id);
         mainActivityView.getFragment(fragment);
     }
-
-
 }

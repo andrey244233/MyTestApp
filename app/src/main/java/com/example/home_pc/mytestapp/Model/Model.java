@@ -1,16 +1,23 @@
 package com.example.home_pc.mytestapp.Model;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.view.Display;
 import android.view.WindowManager;
+
+import com.bumptech.glide.Glide;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
+import com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivityView;
 import com.example.home_pc.mytestapp.Picture;
 
 import java.util.ArrayList;
+
+import static com.example.home_pc.mytestapp.FullScreenImageActivityPackage.FullScreenImageActivityPresenter.CHECK_INTERNET_ACTION;
 
 public class Model {
 
@@ -30,11 +37,6 @@ public class Model {
 
     }
 
-    public void getPictureFromApi(String urlType, PicturesRetrofit.ResponseCallback responseCallback) {
-        PicturesRetrofit picturesRetrofit = new PicturesRetrofit(responseCallback);
-        picturesRetrofit.getPicturesUrlsViaRetrofit(urlType);
-    }
-
     public BaseFragment getFragmentInstance(int id) {
         NavigationRouter navigationRouter = new NavigationRouter();
         return navigationRouter.getFragmentInstance(id);
@@ -49,14 +51,6 @@ public class Model {
         return pictures;
     }
 
-    public boolean checkAccesToInternet(Context context) {
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-
-    }
-
     public int[] getScreenSize(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -68,11 +62,15 @@ public class Model {
         return screenParams;
     }
 
-    public Uri changeImage(int position, ArrayList<Picture> pictures) {
+    public String changeImage(int position, ArrayList<Picture> pictures) {
         Picture currentPicture = pictures.get(position);
-        String url = currentPicture.getUrl();
-        Uri uri = Uri.parse(url);
-        return uri;
+        return currentPicture.getUrl();
     }
+
+    public Configuration getScreenConfiguration(Context context){
+        return context.getResources().getConfiguration();
+    }
+
+
 }
 
