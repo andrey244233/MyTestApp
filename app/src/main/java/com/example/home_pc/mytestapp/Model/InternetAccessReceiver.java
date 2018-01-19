@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 public class InternetAccessReceiver extends BroadcastReceiver {
-
     public static final String CHECK_INTERNET = "android.net.conn.CONNECTIVITY_CHANGE";
     public static Boolean accessToInternet = false;
 
@@ -18,7 +18,6 @@ public class InternetAccessReceiver extends BroadcastReceiver {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             accessToInternet =  netInfo != null && netInfo.isConnectedOrConnecting();
-            Toast.makeText(context, "Internet is = " + accessToInternet, Toast.LENGTH_LONG).show();
         }
     }
 }

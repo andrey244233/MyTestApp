@@ -2,6 +2,7 @@ package com.example.home_pc.mytestapp.MainActivityPackage;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,8 @@ import android.view.MenuItem;
 import com.example.home_pc.mytestapp.Fragments.BaseFragment;
 import com.example.home_pc.mytestapp.Fragments.PictureFragment.PictureFragment;
 import com.example.home_pc.mytestapp.R;
+
+import static com.example.home_pc.mytestapp.Model.InternetAccessReceiver.CHECK_INTERNET;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainActivityView {
