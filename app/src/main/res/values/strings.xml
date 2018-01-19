@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="internet_not_available">Нет подключения к интернету</string>
+    <string name="btn_new">New</string>
+    <string name="btn_top">Top</string>
+    <string name="btn_change_layout">Change Layout</string>
+    <string name="empty_view_text">Подключите интернет и попробуйте снова</string>
 </resources>
